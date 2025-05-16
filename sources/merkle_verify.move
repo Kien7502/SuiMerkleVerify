@@ -9,6 +9,7 @@ module merkle_verify::merkle {
     const InvalidProof: u64 = 2;
     const ERootMisMatched: u64 = 1;
     const ENotOwner: u64 = 3;
+    const ERootNotSet: u64 = 4;
 
     struct MerkleVerifier has key {
         id: UID,
@@ -31,6 +32,9 @@ module merkle_verify::merkle {
     }
 
     public fun verify_merkle(merkle_verifier: &MerkleVerifier, leaf: vector<u8>, merkle_hashes: vector<vector<u8>>, merkle_directions: vector<u8>): bool { 
+        // Check if expected_root is set
+        assert!(!vector::is_empty(&merkle_verifier.expected_root), ERootNotSet);
+
         let merkle_length = vector::length(&merkle_hashes);
         let i = 0;
         let hash_data = leaf;
