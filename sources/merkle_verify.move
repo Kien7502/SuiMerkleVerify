@@ -58,6 +58,7 @@ module merkle_verify::merkle {
             };
             i = i + 1;
         };
-        hash_data == merkle_verifier.expected_root
+        assert!(hash_data == merkle_verifier.expected_root, ERootMisMatched);
+        true
     }
 }

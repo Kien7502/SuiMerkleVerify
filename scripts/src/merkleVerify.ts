@@ -50,7 +50,7 @@ async function merkleVerify() {
           .vector(bcs.vector(bcs.U8))
           .serialize([
             hexStringToUint8Array(
-              "b241f4beaa41f73575b1a03111865644dc73cd994ccea699dc2e027c6b8b94e1"
+              "b241f4beaa41f73575b1a03111865644dc73cd994ccea699dc2e027c6b8b94e3"
             ),
             hexStringToUint8Array(
               "18018b82e8902221bfe5ff5edc67faf9c1f2674afe1d6e97065fde06e0f092cc"
