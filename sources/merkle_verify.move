@@ -16,7 +16,7 @@ module merkle_verify::merkle {
         owner: address
     }
 
-    fun init(ctx: &mut TxContext) {
+    public entry fun create_merkle_verifier(ctx: &mut TxContext) {
         let merkle_verifier = MerkleVerifier {
             id: object::new(ctx),
             expected_root: vector::empty(),

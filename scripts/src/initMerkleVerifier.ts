@@ -16,10 +16,10 @@ async function initMerkleVerifier() {
   const keypair = Ed25519Keypair.fromSecretKey(PRIVATE_KEY);
   const client = new SuiClient({ url: getFullnodeUrl("mainnet") });
 
-  // Create transaction to call init()
+  // Create transaction to call create_merkle_verifier()
   const tx = new Transaction();
   tx.moveCall({
-    target: `${packageId}::merkle::init`,
+    target: `${packageId}::merkle::create_merkle_verifier`,
     arguments: [],
   });
 
