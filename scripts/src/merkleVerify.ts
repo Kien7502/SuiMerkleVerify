@@ -3,7 +3,6 @@ import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import { bcs } from "@mysten/sui/bcs";
 import dotenv from "dotenv";
-import { packageId } from "../utils/packageInfo";
 dotenv.config();
 
 async function merkleVerify() {
@@ -22,6 +21,7 @@ async function merkleVerify() {
 
   // Initialize keypair and client
   const PRIVATE_KEY = process.env.PRIVATE_KEY;
+  const packageId = process.env.PACKAGE_ID;
   if (!PRIVATE_KEY) {
     throw new Error("PRIVATE_KEY is not set in environment variables");
   }
