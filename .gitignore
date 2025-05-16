@@ -1,0 +1,5 @@
+build/
+node_modules/
+Move.lock
+package-lock.json
+.env
