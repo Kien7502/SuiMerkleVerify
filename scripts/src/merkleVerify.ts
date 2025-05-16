@@ -22,9 +22,12 @@ async function merkleVerify() {
   // Initialize keypair and client
   const PRIVATE_KEY = process.env.PRIVATE_KEY;
   const packageId = process.env.PACKAGE_ID;
-  if (!PRIVATE_KEY) {
-    throw new Error("PRIVATE_KEY is not set in environment variables");
+  const MERKLE_VERIFIER_ID = process.env.MERKLE_VERIFIER_ID;
+
+  if (!PRIVATE_KEY || !MERKLE_VERIFIER_ID) {
+    throw new Error("Required environment variables are not set");
   }
+
   const keypair = Ed25519Keypair.fromSecretKey(PRIVATE_KEY);
   const client = new SuiClient({ url: getFullnodeUrl("mainnet") });
 
@@ -32,15 +35,7 @@ async function merkleVerify() {
   tx.moveCall({
     target: `${packageId}::merkle::verify_merkle`,
     arguments: [
-      tx.pure(
-        bcs
-          .vector(bcs.U8)
-          .serialize(
-            hexStringToUint8Array(
-              "320bad79b9356119b2d4ed98377fe4ae44d39d09920b7a4ef6c325b672c5a042"
-            )
-          )
-      ),
+      tx.object(MERKLE_VERIFIER_ID),
       tx.pure(
         bcs
           .vector(bcs.U8)
@@ -65,15 +60,7 @@ async function merkleVerify() {
             ),
           ])
       ),
-      tx.pure(
-        bcs
-          .vector(bcs.vector(bcs.U8))
-          .serialize([
-            stringToUint8Array("right"),
-            stringToUint8Array("right"),
-            stringToUint8Array("right"),
-          ])
-      ),
+      tx.pure(bcs.vector(bcs.U8).serialize([1, 1, 1])),
     ],
   });
 
@@ -86,7 +73,8 @@ async function merkleVerify() {
       showObjectChanges: true,
     },
   });
-  console.log({ result });
+
+  console.log("Verification result:", result.effects?.status);
 }
 
 merkleVerify();
