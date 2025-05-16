@@ -3,8 +3,6 @@ import { Transaction } from "@mysten/sui/transactions";
 import { Ed25519Keypair } from "@mysten/sui/keypairs/ed25519";
 import dotenv from "dotenv";
 import { execSync } from "child_process";
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 
 dotenv.config();
 
